@@ -1,0 +1,32 @@
+.root {
+  width: 400px;
+}
+
+.box {
+  margin-top: 128px;
+  width: 100%;  
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  /* flex: 0 0 100%; */
+  width: 50px;
+  max-inline-size: 50%;
+}
+
+.actions {
+  /* display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: stretch; */
+  width: 100%;
+}
+
+.actions .cds--btn {
+  /* flex: 0 0 100%; */
+  width: 50px;
+  max-inline-size: 50%;
+}

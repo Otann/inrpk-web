@@ -1,0 +1,51 @@
+:root {
+  /* 
+  spacings from docs
+  @see https: //carbondesignsystem.com/guidelines/spacing/overview/
+  */
+  --spacing-01: 0.125rem;
+  --spacing-02: 0.25rem;
+  --spacing-03: 0.5rem;
+  --spacing-04: 0.75rem;
+  --spacing-05: 1rem;
+  --spacing-06: 1.5rem;
+  --spacing-07: 2rem;
+  --spacing-08: 2.5rem;
+  --spacing-09: 3rem;
+  --spacing-10: 4rem;
+  --spacing-11: 5rem;
+  --spacing-12: 6rem;
+  --spacing-13: 10rem;
+
+  --spacing-01-px: 2px;
+  --spacing-02-px: 4px;
+  --spacing-03-px: 8px;
+  --spacing-04-px: 12px;
+  --spacing-05-px: 16px;
+  --spacing-06-px: 24px;
+  --spacing-07-px: 32px;
+  --spacing-08-px: 40px;
+  --spacing-09-px: 48px;
+  --spacing-10-px: 64px;
+  --spacing-11-px: 80px;
+  --spacing-12-px: 96px;
+  --spacing-13-px: 160px;
+
+  /* 
+  Mini-unit from 2x Grid docs
+  @see https: //carbondesignsystem.com/guidelines/2x-grid/overview/
+  */
+  --mini-unit-x1: 8px;
+  --mini-unit-x2: 16px;
+  --mini-unit-x3: 24px;
+  --mini-unit-x4: 32px;
+  --mini-unit-x6: 48px;
+  --mini-unit-x8: 64px;
+  --mini-unit-x10: 80px;  
+
+  --aspect-ratio-1-1: 1:1;
+  --aspect-ratio-2-1: 2:1;
+  --aspect-ratio-2-3: 2:3;
+  --aspect-ratio-4-3: 4:3;
+  --aspect-ratio-16-9: 16:9;
+}

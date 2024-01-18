@@ -1,0 +1,56 @@
+{
+  "name": "inrpk-web",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix dev",
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "sass": "sass --load-path=node_modules --watch styles/:app/styles",
+    "start": "remix-serve ./build/index.js",
+    "db:generate": "drizzle-kit generate:pg --out drizzle --schema app/lib/db/schema.ts",
+    "db:migrate": "npx tsx utils/migrate.ts",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@carbon/react": "^1.47.0",
+    "@remix-run/css-bundle": "^2.5.0",
+    "@remix-run/node": "^2.5.0",
+    "@remix-run/react": "^2.5.0",
+    "@remix-run/serve": "^2.5.0",
+    "bcryptjs": "^2.4.3",
+    "drizzle-orm": "^0.29.3",
+    "isbot": "^3.6.8",
+    "postgres": "^3.4.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remix-auth": "^3.6.0",
+    "remix-auth-form": "^1.4.0",
+    "short-unique-id": "^5.0.3",
+    "telegraf": "^3.38.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^2.4.1",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.2",
+    "drizzle-kit": "^0.20.10",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.33",
+    "sass": "^1.69.7",
+    "typescript": "^5.1.6"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

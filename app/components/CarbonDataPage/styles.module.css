@@ -1,0 +1,9 @@
+/* @import */
+
+.root {
+  /* max-width: 800px; */
+  padding-left: var(--spacing-08);
+  padding-right: var(--spacing-08);
+  padding-top: var(--spacing-05);
+  padding-bottom: var(--spacing-09);
+}

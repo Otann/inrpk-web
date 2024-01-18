@@ -1,0 +1,13 @@
+$css--font-face: false;
+@import '@carbon/styles';
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+body {
+  height: 100%;
+}
