@@ -21,21 +21,13 @@ const Shell: React.FC<React.PropsWithChildren> = (props) => {
     <div className="container">
       <Header aria-label="Carbon Remix">
         <HeaderName href="/" prefix="Проект">
-          Летовед
+          ИнРПК Бот
         </HeaderName>
         <HeaderNavigation aria-label="Carbon Remix">
-          <RemixedHeaderMenuItem to="/timeline">Таймлайн</RemixedHeaderMenuItem>
-          <RemixedHeaderMenuItem to="/event">События</RemixedHeaderMenuItem>
-          <RemixedHeaderMenuItem to="/person">Персоны</RemixedHeaderMenuItem>
-          <HeaderMenu aria-label="Link 4" menuLinkName="Добавить">
-            <RemixedHeaderMenuItem to="/event/add">
-              Событие
-            </RemixedHeaderMenuItem>
-            <RemixedHeaderMenuItem to="/person/add">
-              Персона
-            </RemixedHeaderMenuItem>
-            {/* <HeaderMenuItem href="#">Факт</HeaderMenuItem> */}
-          </HeaderMenu>
+          <RemixedHeaderMenuItem to="/timeline">
+            Расписание
+          </RemixedHeaderMenuItem>
+          <RemixedHeaderMenuItem to="/groups">Группы</RemixedHeaderMenuItem>
         </HeaderNavigation>
         <HeaderGlobalBar>
           {/* <HeaderGlobalAction aria-label="Search" onClick={() => {}}>
