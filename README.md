@@ -1,6 +1,12 @@
-# Welcome to Remix!
+# Welcome to InRPK bot!
 
-- [Remix Docs](https://remix.run/docs)
+## Set up
+
+From your terminal:
+
+```sh
+npm install
+```
 
 ## Development
 
@@ -14,25 +20,16 @@ This starts your app in development mode, rebuilding assets on file changes.
 
 ## Deployment
 
-First, build your app for production:
+Happens automatically via a GitHub hook to letoved.ru
+
+If you change the telegram bot route, here is how to set the webhook:
 
 ```sh
-npm run build
+curl \
+  --request POST \
+  --url https://api.telegram.org/bot<BOT_TOKEN>/setWebhook \
+  --header 'content-type: application/json' \
+  --data '{"url": "https://inrpk.letoved.ru/telegram/<ROUTE_SUFFIX>"}'
 ```
 
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
+Take route suffix from the filename. Not the most secure way, but will do for the time being.
