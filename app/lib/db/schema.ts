@@ -1,8 +1,9 @@
-import { InferSelectModel } from 'drizzle-orm';
+import { InferSelectModel, relations } from 'drizzle-orm';
 import {
+  bigint,
   boolean,
+  integer,
   jsonb,
-  numeric,
   pgEnum,
   pgTable,
   serial,
@@ -24,7 +25,7 @@ export const totp = pgTable(
     code: varchar('code', { length: 32 }),
     createdAt: timestamp('created_at', { withTimezone: true }),
     wasUsed: boolean('was_used'),
-    telegramId: numeric('telegram_id'),
+    telegramId: integer('telegram_id'),
     telegramUser: jsonb('telegram_user').$type<User>(),
   },
   (totp) => {
@@ -53,7 +54,7 @@ export const account = pgTable(
   'account',
   {
     id: serial('id').primaryKey(),
-    telegramId: numeric('telegram_id'),
+    telegramId: bigint('telegram_id', { mode: 'number' }),
     firstName: varchar('first_name', { length: 128 }),
     lastName: varchar('last_name', { length: 128 }),
     roles: varchar('roles').array().$type<AccountRoleId[]>(),
@@ -61,9 +62,46 @@ export const account = pgTable(
   },
   (account) => {
     return {
-      telegramIdIndex: uniqueIndex('telegramId').on(account.telegramId),
+      telegramIdIndex: uniqueIndex('account_telegram_id').on(
+        account.telegramId
+      ),
     };
   }
 );
 
 export type Account = InferSelectModel<typeof account>;
+
+export const studyGroup = pgTable('study_group', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 256 }),
+  telegramChatId: integer('telegram_chat_id'),
+});
+
+export type StudyGroup = InferSelectModel<typeof studyGroup>;
+
+export const telegramGroup = pgTable(
+  'telegram_group',
+  {
+    id: serial('id').primaryKey(),
+    telegramId: bigint('telegram_id', { mode: 'number' }),
+    title: varchar('title', { length: 256 }),
+    photoId: varchar('photoId', { length: 128 }),
+    createdAt: timestamp('created_at', { withTimezone: true }),
+  },
+  (table) => {
+    return {
+      telegramIdIndex: uniqueIndex('study_group_telegram_id').on(
+        table.telegramId
+      ),
+    };
+  }
+);
+
+export type TelegramGroup = InferSelectModel<typeof telegramGroup>;
+
+export const studyGroupRelations = relations(studyGroup, ({ one }) => ({
+  telegramGroup: one(telegramGroup, {
+    fields: [studyGroup.telegramChatId],
+    references: [telegramGroup.telegramId],
+  }),
+}));

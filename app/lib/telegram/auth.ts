@@ -12,7 +12,7 @@ export async function sendNewCode(ctx: TelegrafContext) {
   }
 
   const telegramUser = ctx.message.from;
-  const telegramId = `${telegramUser?.id}`;
+  const telegramId = telegramUser?.id;
   const createdAt = new Date();
 
   await db

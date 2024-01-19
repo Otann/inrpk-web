@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "build": "remix build",
-    "dev": "remix dev",
+    "dev": "concurrently \"npm run dev:*\"",
+    "dev:web": "remix dev",
+    "dev:bot": "tsx watch utils/bot.ts",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "sass": "sass --load-path=node_modules --watch styles/:app/styles",
     "start": "remix-serve ./build/index.js",
     "db:generate": "drizzle-kit generate:pg --out drizzle --schema app/lib/db/schema.ts",
-    "db:migrate": "npx tsx utils/migrate.ts",
+    "db:migrate": "tsx utils/migrate.ts",
     "typecheck": "tsc"
   },
   "dependencies": {
@@ -48,6 +50,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.33",
     "sass": "^1.69.7",
+    "tsx": "^4.7.0",
     "typescript": "^5.1.6"
   },
   "engines": {

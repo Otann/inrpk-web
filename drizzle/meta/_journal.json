@@ -8,6 +8,34 @@
       "when": 1705615385850,
       "tag": "0000_spicy_micromacro",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1705695286498,
+      "tag": "0001_sloppy_bloodstorm",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1705695334237,
+      "tag": "0002_furry_nova",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1705696107627,
+      "tag": "0003_warm_firebird",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1705699001908,
+      "tag": "0004_melted_penance",
+      "breakpoints": true
     }
   ]
 }

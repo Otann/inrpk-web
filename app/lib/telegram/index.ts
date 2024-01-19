@@ -1,5 +1,6 @@
 import Telegraf from 'telegraf';
 import { sendNewCode, REQUEST_CODE_MSG } from './auth';
+import { joinGroup } from './groups';
 
 export const bot = new Telegraf(process.env.BOT_TOKEN!);
 
@@ -16,6 +17,12 @@ bot.help(async (ctx) => {
 
 bot.command('code', async (ctx) => {
   sendNewCode(ctx);
+});
+
+bot.command('join', async (ctx) => {
+  if (ctx.chat) {
+    joinGroup(bot, ctx.chat?.id);
+  }
 });
 
 bot.on('message', async (ctx) => {
