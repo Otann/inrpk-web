@@ -5,7 +5,7 @@ import CarbonContentPage from '~/components/CarbonContentPage';
 import { db } from '~/lib/db';
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'Летовед: Профиль' }];
+  return [{ title: 'ИНРПК: Телеграм' }];
 };
 
 export const loader = async () => {

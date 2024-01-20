@@ -3,8 +3,8 @@ import CarbonContentPage from '~/components/CarbonContentPage';
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Летовед' },
-    { name: 'description', content: 'Welcome to Remix!' },
+    { title: 'ИНРПК' },
+    { name: 'description', content: 'Управление ботом' },
   ];
 };
 
