@@ -34,6 +34,12 @@ export async function joinGroup(
   });
 
   if (existing) {
+    await db
+      .update(telegramGroup)
+      .set({
+        title: chatInfo.title,
+      })
+      .where(eq(telegramGroup.telegramId, chatId));
     bot.telegram.sendMessage(chatId, 'Обновил информацию о группе');
   } else {
     await db.insert(telegramGroup).values({
