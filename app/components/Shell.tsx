@@ -19,9 +19,10 @@ import RemixedHeaderMenuItem from './remixed/RemixedHeaderMenuItem';
 
 const HeaderMenuItems = (
   <>
-    <RemixedHeaderMenuItem to="/timeline">Расписание</RemixedHeaderMenuItem>
+    <RemixedHeaderMenuItem to="/schedule">Расписание</RemixedHeaderMenuItem>
     <RemixedHeaderMenuItem to="/group">Группы</RemixedHeaderMenuItem>
     <RemixedHeaderMenuItem to="/telegram">Телеграм</RemixedHeaderMenuItem>
+    <RemixedHeaderMenuItem to="/zoom">Зум</RemixedHeaderMenuItem>
     {/* <HeaderMenu aria-label="Телеграм" menuLinkName="Телеграм">
       <HeaderMenuItem href="#one">Sub-link 1</HeaderMenuItem>
       <HeaderMenuItem href="#two">Sub-link 2</HeaderMenuItem>
