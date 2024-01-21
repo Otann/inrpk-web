@@ -5,8 +5,18 @@
   /* line-height: 1px; */
   /* position: relative; */
   /* top: -16px; */
+  width: 10rem;
 }
 
 .place {
   font-weight: bold;
+  width: 10rem;
+}
+
+.name {
+  /* width: 600px; */
+}
+
+.extra {
+  width: 250px;
 }

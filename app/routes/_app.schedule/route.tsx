@@ -8,6 +8,7 @@ import {
   StructuredListRow,
   StructuredListCell,
   StructuredListBody,
+  Link,
 } from '@carbon/react';
 import { Close, Video } from '@carbon/icons-react';
 import { LoaderFunctionArgs, MetaFunction, json } from '@remix-run/node';
@@ -15,6 +16,7 @@ import { useLoaderData } from '@remix-run/react';
 import { authenticator } from '~/lib/auth.server';
 import CarbonContentPage from '~/components/CarbonContentPage';
 import styles from './styles.module.css';
+import CarbonDataPage from '~/components/CarbonDataPage';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'ИНРПК: Профиль' }];
@@ -72,7 +74,7 @@ const data = [
 
 export default function Profile() {
   return (
-    <CarbonContentPage>
+    <CarbonDataPage>
       <Stack gap={7}>
         {/* <Stack orientation="horizontal">
           <h1>Расписание занятий</h1>
@@ -94,20 +96,24 @@ export default function Profile() {
                 <StructuredListBody>
                   {section.events.map((event) => (
                     <StructuredListRow key={event.place}>
-                      <StructuredListCell>
+                      <StructuredListCell className={styles.actions}>
                         {/* <Button
                           kind="ghost"
                           iconDescription="Открыть зум"
                           hasIconOnly
                           renderIcon={Video}
                         /> */}
-                        <a href="/#">Открыть зум</a>
+                        <Link href="/#" renderIcon={Video}>
+                          Открыть зум
+                        </Link>
                       </StructuredListCell>
-                      <StructuredListCell noWrap className={styles.place}>
+                      <StructuredListCell className={styles.place}>
                         {event.place}
                       </StructuredListCell>
-                      <StructuredListCell>{event.name}</StructuredListCell>
-                      <StructuredListCell>
+                      <StructuredListCell className={styles.name}>
+                        {event.name}
+                      </StructuredListCell>
+                      <StructuredListCell className={styles.extra}>
                         {event.sent ? (
                           'Ссылка отправлена'
                         ) : (
@@ -123,6 +129,6 @@ export default function Profile() {
         </Stack>
         <Stack></Stack>
       </Stack>
-    </CarbonContentPage>
+    </CarbonDataPage>
   );
 }
