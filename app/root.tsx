@@ -1,5 +1,9 @@
 import { cssBundleHref } from '@remix-run/css-bundle';
-import type { LinksFunction, MetaFunction } from '@remix-run/node';
+import type {
+  HeadersFunction,
+  LinksFunction,
+  MetaFunction,
+} from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -34,6 +38,16 @@ export const meta: MetaFunction = () => {
     { name: 'description', content: 'Сила в правде' },
   ];
 };
+
+// https://remix.run/docs/en/main/route/headers
+// https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
+export const headers: HeadersFunction = () => ({
+  'X-Frame-Options': 'DENY',
+  'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
+  'Content-Security-Policy': 'strict-dynamic',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+});
 
 export default function App() {
   return (
