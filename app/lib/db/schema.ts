@@ -12,6 +12,7 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 import { User } from 'telegraf/typings/telegram-types';
+import { ZoomUser } from '../api/zoom.server';
 
 /**
  * Type could be exported with helpers:
@@ -105,3 +106,20 @@ export const studyGroupRelations = relations(studyGroup, ({ one }) => ({
     references: [telegramGroup.telegramId],
   }),
 }));
+
+export const zoomCredentials = pgTable(
+  'zoom_credentials',
+  {
+    id: serial('id').primaryKey(),
+    zoomUserId: varchar('zoom_user_id', { length: 128 }),
+    zoomUser: jsonb('zoom_user').$type<ZoomUser>(),
+    credentials: jsonb('zoom_credentials').$type<ZoomCredentials>(),
+  },
+  (table) => {
+    return {
+      zoomUserIdIndex: uniqueIndex('zoom_credentials_zoom_user_id').on(
+        table.zoomUserId
+      ),
+    };
+  }
+);
