@@ -67,7 +67,7 @@ export function getAuthorizeUrl(): string {
   });
 }
 
-type ZoomCredentials = {
+export type ZoomCredentials = {
   access_token: string;
   token_type: 'bearer';
   refresh_token: string;

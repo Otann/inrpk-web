@@ -12,7 +12,7 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 import { User } from 'telegraf/typings/telegram-types';
-import { ZoomUser } from '../api/zoom.server';
+import { ZoomCredentials, ZoomUser } from '~/lib/api/zoom.server';
 
 /**
  * Type could be exported with helpers:

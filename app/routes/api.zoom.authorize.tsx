@@ -6,40 +6,40 @@ import { eq } from 'drizzle-orm';
 import { isAxiosError } from 'axios';
 
 export const loader: LoaderFunction = async ({ request }) => {
+  const params = new URL(request.url).searchParams;
+  const code = params.get('code');
+  console.log('params: ', params);
   try {
-    const params = new URL(request.url).searchParams;
-    const code = params.get('code');
-    console.log('params: ', params);
-    // const credentials = await getAccessToken(code!);
-    // console.log('got access token');
-    // const user = await whoAmI(credentials.access_token);
-    // console.log('got user information');
+    const credentials = await getAccessToken(code!);
+    console.log('got access token');
+    const user = await whoAmI(credentials.access_token);
+    console.log('got user information');
 
     // TODO: seems like a candidate for upsert
-    // const existing = await db.query.zoomCredentials.findFirst({
-    //   where: eq(zoomCredentials.zoomUserId, user.id),
-    // });
+    const existing = await db.query.zoomCredentials.findFirst({
+      where: eq(zoomCredentials.zoomUserId, user.id),
+    });
 
-    // if (existing) {
-    //   await db
-    //     .update(zoomCredentials)
-    //     .set({
-    //       zoomUser: user,
-    //       credentials: original,
-    //     })
-    //     .where(eq(zoomCredentials.zoomUserId, user.id));
-    // } else {
-    //   await db.insert(zoomCredentials).values({
-    //     zoomUser: user,
-    //     zoomUserId: user.id,
-    //     credentials: original,
-    //   });
-    // }
+    if (existing) {
+      await db
+        .update(zoomCredentials)
+        .set({
+          zoomUser: user,
+          credentials: existing,
+        })
+        .where(eq(zoomCredentials.zoomUserId, user.id));
+    } else {
+      await db.insert(zoomCredentials).values({
+        zoomUser: user,
+        zoomUserId: user.id,
+        credentials: existing,
+      });
+    }
 
-    return json({ code, redirectUrl: REDIRECT_URL });
+    return json({ user });
   } catch (err) {
     if (isAxiosError(err)) {
-      return json({ error: err.response?.data });
+      return json({ error: err.response?.data, code, REDIRECT_URL });
     } else {
       return json({ unknown: `${err}` });
     }

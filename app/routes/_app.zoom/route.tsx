@@ -2,9 +2,12 @@ import { Button, Stack } from '@carbon/react';
 import { ActionFunction, MetaFunction, json } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import CarbonContentPage from '~/components/CarbonContentPage';
-import { getAuthorizeUrl, refreshAccessToken } from '~/lib/api/zoom.server';
+import {
+  getAuthorizeUrl,
+  refreshAccessToken,
+  createMeeting,
+} from '~/lib/api/zoom.server';
 import { db } from '~/lib/db';
-import { bot } from '~/lib/telegram';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'ИНРПК: Зум' }];
@@ -24,11 +27,17 @@ export const action: ActionFunction = async ({ request }) => {
   switch (action) {
     case 'start_meeting': {
       const zoomCredentials = await db.query.zoomCredentials.findFirst();
-      const token = await refreshAccessToken(
-        zoomCredentials!.credentials.access_token
-      );
+      // const refreshedToken = await refreshAccessToken(
+      //   zoomCredentials!.credentials.access_token
+      // );
+      const token = zoomCredentials?.credentials?.access_token as string;
+      const meeting = await createMeeting(token, 'me', {
+        type: 1,
+        topic: 'this is a test',
+        agenda: 'hallo friend',
+      });
 
-      return json({ ok: 'webhook set' });
+      return json({ meeting });
     }
   }
 
