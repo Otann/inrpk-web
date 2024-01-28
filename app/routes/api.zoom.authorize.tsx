@@ -25,7 +25,7 @@ export const loader: LoaderFunction = async ({ request }) => {
         .update(zoomCredentials)
         .set({
           zoomUser: user,
-          credentials: existing,
+          credentials,
         })
         .where(eq(zoomCredentials.zoomUserId, user.id));
     } else {
