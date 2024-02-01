@@ -43,6 +43,13 @@
       "when": 1706396619401,
       "tag": "0005_nervous_martin_li",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1706749000839,
+      "tag": "0006_useful_earthquake",
+      "breakpoints": true
     }
   ]
 }

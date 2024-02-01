@@ -4,7 +4,7 @@ import type {
   MetaFunction,
 } from '@remix-run/node';
 import { json, useLoaderData } from '@remix-run/react';
-import { authenticator } from '~/lib/auth.server';
+import { loginUrl, authenticator } from '~/lib/auth.server';
 import { commitSession, getSession } from '~/lib/session.server';
 import LoginForm from '~/components/LoginForm';
 
@@ -35,7 +35,7 @@ export const action: ActionFunction = async ({ request }) => {
   try {
     return authenticator.authenticate('code', request, {
       successRedirect: '/',
-      failureRedirect: '/auth/login',
+      failureRedirect: loginUrl(),
     });
   } catch (error) {
     return json({ error });

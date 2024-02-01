@@ -1,22 +1,16 @@
+import { Video } from '@carbon/icons-react';
 import {
-  Button,
-  Stack,
-  ContainedList,
-  ContainedListItem,
-  StructuredListWrapper,
-  StructuredListHead,
-  StructuredListRow,
-  StructuredListCell,
-  StructuredListBody,
   Link,
+  Stack,
+  StructuredListBody,
+  StructuredListCell,
+  StructuredListRow,
+  StructuredListWrapper,
 } from '@carbon/react';
-import { Close, Video } from '@carbon/icons-react';
 import { LoaderFunctionArgs, MetaFunction, json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
-import { authenticator } from '~/lib/auth.server';
-import CarbonContentPage from '~/components/CarbonContentPage';
-import styles from './styles.module.css';
 import CarbonDataPage from '~/components/CarbonDataPage';
+import { authenticator, loginUrl } from '~/lib/auth.server';
+import styles from './styles.module.css';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'ИНРПК: Профиль' }];
@@ -24,7 +18,7 @@ export const meta: MetaFunction = () => {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const user = await authenticator.isAuthenticated(request, {
-    failureRedirect: '/auth/login',
+    failureRedirect: loginUrl(),
   });
   return json({ user });
 };

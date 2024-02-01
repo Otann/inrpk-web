@@ -1,7 +1,7 @@
 import { Button, Stack } from '@carbon/react';
 import { LoaderFunctionArgs, MetaFunction, json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
-import { authenticator } from '~/lib/auth.server';
+import { loginUrl, authenticator } from '~/lib/auth.server';
 import CarbonContentPage from '~/components/CarbonContentPage';
 
 export const meta: MetaFunction = () => {
@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const user = await authenticator.isAuthenticated(request, {
-    failureRedirect: '/auth/login',
+    failureRedirect: loginUrl(),
   });
   return json({ user });
 };

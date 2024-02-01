@@ -1,0 +1,1 @@
+ALTER TABLE "study_group" ALTER COLUMN "telegram_chat_id" SET DATA TYPE bigint;

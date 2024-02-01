@@ -1,0 +1,23 @@
+.title {
+  justify-content: space-between;
+}
+
+.groups_table {
+  table-layout: fixed;
+}
+
+.name {
+  width: 400px;
+}
+
+.telegram {
+  width: 300px;
+}
+
+.next_lesson {
+  width: auto;
+}
+
+.actions {
+  width: 100px;
+}

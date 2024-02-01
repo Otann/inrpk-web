@@ -1,9 +1,17 @@
-import { Authenticator, AuthorizationError } from "remix-auth";
-import { sessionStorage } from "./session.server";
-import { FormStrategy } from "remix-auth-form";
-import { Account, account, totp } from "./db/schema";
-import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { Authenticator, AuthorizationError } from 'remix-auth';
+import { sessionStorage } from './session.server';
+import { FormStrategy } from 'remix-auth-form';
+import { Account, account, totp } from './db/schema';
+import { db } from './db';
+import { eq } from 'drizzle-orm';
+
+export function loginUrl(reason: string | null = null): string {
+  if (reason) {
+    return `/auth/login?reason=${reason}`;
+  } else {
+    return `/auth/login?reason=unauthenticated`;
+  }
+}
 
 export const authenticator = new Authenticator<Account>(sessionStorage, {
   throwOnError: true,
@@ -11,14 +19,14 @@ export const authenticator = new Authenticator<Account>(sessionStorage, {
 
 export const requireUser = async (request: Request) => {
   return await authenticator.isAuthenticated(request, {
-    failureRedirect: "/",
+    failureRedirect: loginUrl(),
   });
 };
 
 const codeStrategy = new FormStrategy(async ({ form }) => {
   //TODO: code should be encrypted and salted probably?
-  const code = form.get("code") as string;
-  console.log("code:", code);
+  const code = form.get('code') as string;
+  console.log('code:', code);
 
   if (!code) {
     throw new AuthorizationError(`Введите код в поле выше`);
@@ -31,7 +39,7 @@ const codeStrategy = new FormStrategy(async ({ form }) => {
 
     if (!existingCode) {
       console.error(`Unable to find provided code in the database ${code}`);
-      throw new AuthorizationError("Невалидный код, получите новый");
+      throw new AuthorizationError('Невалидный код, получите новый');
     }
 
     const accountInfo = {
@@ -60,4 +68,4 @@ const codeStrategy = new FormStrategy(async ({ form }) => {
   return result[0];
 });
 
-authenticator.use(codeStrategy, "code");
+authenticator.use(codeStrategy, 'code');

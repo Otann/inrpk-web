@@ -75,10 +75,13 @@ export type Account = InferSelectModel<typeof account>;
 export const studyGroup = pgTable('study_group', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 256 }),
-  telegramChatId: integer('telegram_chat_id'),
+  telegramChatId: bigint('telegram_chat_id', { mode: 'number' }),
 });
 
 export type StudyGroup = InferSelectModel<typeof studyGroup>;
+export type StudyGroupWithTg = StudyGroup & {
+  telegramGroup: TelegramGroup;
+};
 
 export const telegramGroup = pgTable(
   'telegram_group',
@@ -123,3 +126,5 @@ export const zoomCredentials = pgTable(
     };
   }
 );
+
+export type ZoomCredentials = InferSelectModel<typeof zoomCredentials>;
