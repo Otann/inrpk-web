@@ -21,7 +21,7 @@ export const action: ActionFunction = async ({ request }) => {
   switch (action) {
     case 'webhook': {
       await bot.telegram.setWebhook(
-        `https://inrpk.letoved.ru/telegram/X4rmkvFBmnZaFtywaPmx`
+        `https://inrpk-admin.ru/api/telegram/X4rmkvFBmnZaFtywaPmx`
       );
       return json({ ok: 'webhook set' });
     }

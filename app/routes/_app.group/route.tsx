@@ -1,4 +1,4 @@
-import { TrashCan } from '@carbon/icons-react';
+import { TrashCan, SendAlt } from '@carbon/icons-react';
 import {
   Button,
   Stack,
@@ -21,6 +21,7 @@ import {
 } from '~/lib/db/schema';
 import { AddNewGroupButton } from './AddNewGroupButton';
 import { EditGroupButton } from './EditGroupButton';
+import { bot } from '~/lib/telegram';
 import styles from './styles.module.css';
 
 export const meta: MetaFunction = () => {
@@ -73,6 +74,20 @@ export const action: ActionFunction = async ({ request }) => {
         })
         .where(eq(studyGroup.id, id));
       return json({ ok: result });
+    }
+
+    case 'test': {
+      const chatId = parseInt(form.get('chatId') as string);
+      try {
+        const message = bot.telegram.sendMessage(
+          chatId,
+          'Проверка связи бота с группой'
+        );
+        return json({ ok: message });
+      } catch (err) {
+        console.log(err);
+        return json({ ok: err });
+      }
     }
 
     case 'remove': {
@@ -148,6 +163,22 @@ export default function Profile() {
                         {
                           action: 'remove',
                           id: group.id,
+                        },
+                        { method: 'post' }
+                      );
+                    }}
+                  />
+                  <Button
+                    size="sm"
+                    kind="ghost"
+                    hasIconOnly
+                    renderIcon={SendAlt}
+                    iconDescription="Тест"
+                    onClick={() => {
+                      submit(
+                        {
+                          action: 'test',
+                          chatId: group.telegramChatId,
                         },
                         { method: 'post' }
                       );
