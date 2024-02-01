@@ -1,0 +1,15 @@
+.title {
+  justify-content: space-between;
+}
+
+.content_table {
+  table-layout: fixed;
+}
+
+.name {
+  width: auto;
+}
+
+.actions {
+  width: 300px;
+}

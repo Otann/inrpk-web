@@ -9,5 +9,5 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await bot.telegram.setWebhook(`https://inrpk-admin.ru${request.url}`);
-  return json({ ok: `Webhook set to https://inrpk-admin.ru/api/telegram/...` });
+  return json({ ok: `Webhook set to https://inrpk-admin.ru/api/telegram/` });
 };

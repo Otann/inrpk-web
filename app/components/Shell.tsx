@@ -6,6 +6,7 @@ import {
   HeaderGlobalAction,
   HeaderGlobalBar,
   HeaderMenuButton,
+  HeaderMenuItem,
   HeaderName,
   HeaderNavigation,
   HeaderSideNavItems,
@@ -14,15 +15,14 @@ import {
   SkipToContent,
 } from '@carbon/react';
 import { useMatches } from '@remix-run/react';
-import React, { useState } from 'react';
-import RemixedHeaderMenuItem from './remixed/RemixedHeaderMenuItem';
+import React from 'react';
 
 const HeaderMenuItems = (
   <>
-    <RemixedHeaderMenuItem to="/schedule">Расписание</RemixedHeaderMenuItem>
-    <RemixedHeaderMenuItem to="/group">Группы</RemixedHeaderMenuItem>
-    <RemixedHeaderMenuItem to="/telegram">Телеграм</RemixedHeaderMenuItem>
-    <RemixedHeaderMenuItem to="/zoom">Зум</RemixedHeaderMenuItem>
+    <HeaderMenuItem href="/schedule">Расписание</HeaderMenuItem>
+    <HeaderMenuItem href="/group">Группы</HeaderMenuItem>
+    <HeaderMenuItem href="/telegram">Телеграм</HeaderMenuItem>
+    <HeaderMenuItem href="/zoom">Зум</HeaderMenuItem>
     {/* <HeaderMenu aria-label="Телеграм" menuLinkName="Телеграм">
       <HeaderMenuItem href="#one">Sub-link 1</HeaderMenuItem>
       <HeaderMenuItem href="#two">Sub-link 2</HeaderMenuItem>
@@ -72,11 +72,15 @@ const Shell: React.FC<React.PropsWithChildren> = (props) => {
               expanded={isSideNavExpanded}
               onSideNavBlur={onClickSideNavExpand}
               href="#main-content"
-              placeholder={'noop'}
+              placeholder="noop"
             >
               <SideNavItems>
-                <HeaderSideNavItems>{HeaderMenuItems}</HeaderSideNavItems>
-                {/* <SideNavLink renderIcon={Fade}>Link</SideNavLink> */}
+                <HeaderSideNavItems>
+                  <HeaderMenuItem href="/schedule">Расписание</HeaderMenuItem>
+                  <HeaderMenuItem href="/group">Группы</HeaderMenuItem>
+                  <HeaderMenuItem href="/telegram">Телеграм</HeaderMenuItem>
+                  <HeaderMenuItem href="/zoom">Зум</HeaderMenuItem>
+                </HeaderSideNavItems>
               </SideNavItems>
             </SideNav>
           </Header>

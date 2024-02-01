@@ -1,9 +1,19 @@
-import { Stack } from '@carbon/react';
+import {
+  Link,
+  Stack,
+  StructuredListBody,
+  StructuredListCell,
+  StructuredListHead,
+  StructuredListRow,
+  StructuredListWrapper,
+} from '@carbon/react';
 import { ActionFunction, MetaFunction, json } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 import CarbonContentPage from '~/components/CarbonContentPage';
+import CarbonDataPage from '~/components/CarbonDataPage';
 import { db } from '~/lib/db';
 import { bot } from '~/lib/telegram';
+import styles from './styles.module.css';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'ИНРПК: Телеграм' }];
@@ -34,20 +44,32 @@ export default function Profile() {
   const { groups } = useLoaderData<typeof loader>();
 
   return (
-    <CarbonContentPage>
+    <CarbonDataPage>
       <Stack gap={7}>
         <h1>Записанные Группы</h1>
-        <ul>
-          {groups.map((group) => (
-            <li key={group.id}>{group.title}</li>
-          ))}
-        </ul>
-        <Form method="post">
-          <button type="submit" name="action" value="webhook">
-            Set Prod Webhook
-          </button>
-        </Form>
+        <StructuredListWrapper className={styles.content_table}>
+          <StructuredListHead>
+            <StructuredListRow head>
+              <StructuredListCell head className={styles.name}>
+                Название группы
+              </StructuredListCell>
+              <StructuredListCell head className={styles.actions}>
+                {' '}
+              </StructuredListCell>
+            </StructuredListRow>
+          </StructuredListHead>
+          <StructuredListBody>
+            {groups.map((group) => (
+              <StructuredListRow key={group.id}>
+                <StructuredListCell noWrap>{group.title}</StructuredListCell>
+                <StructuredListCell>
+                  <Link>Отправить тестовое сообщение</Link>
+                </StructuredListCell>
+              </StructuredListRow>
+            ))}
+          </StructuredListBody>
+        </StructuredListWrapper>
       </Stack>
-    </CarbonContentPage>
+    </CarbonDataPage>
   );
 }
