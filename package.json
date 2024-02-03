@@ -30,6 +30,7 @@
     "react-dom": "^18.2.0",
     "remix-auth": "^3.6.0",
     "remix-auth-form": "^1.4.0",
+    "remix-utils": "^7.5.0",
     "short-unique-id": "^5.0.3",
     "telegraf": "^3.38.0"
   },

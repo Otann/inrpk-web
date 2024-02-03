@@ -66,7 +66,7 @@ const Shell: React.FC<React.PropsWithChildren> = (props) => {
                 <Notification size={20} />
               </HeaderGlobalAction>
             </HeaderGlobalBar>
-            <SideNav
+            {/* <SideNav
               aria-label="Side navigation"
               isPersistent={false}
               expanded={isSideNavExpanded}
@@ -82,7 +82,7 @@ const Shell: React.FC<React.PropsWithChildren> = (props) => {
                   <HeaderMenuItem href="/zoom">Зум</HeaderMenuItem>
                 </HeaderSideNavItems>
               </SideNavItems>
-            </SideNav>
+            </SideNav> */}
           </Header>
           <Content id="main-content">{props.children}</Content>
         </>

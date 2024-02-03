@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import { ClientOnly } from 'remix-utils/client-only';
 
 export interface StateManagerModalProps {
   open: boolean;
@@ -18,12 +19,14 @@ export const ModalStateManager = ({
   const [open, setOpen] = useState(false);
   return (
     <>
-      {!ModalContent || typeof document === 'undefined'
-        ? null
-        : ReactDOM.createPortal(
+      <ClientOnly>
+        {() =>
+          ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} />,
             document.body
-          )}
+          )
+        }
+      </ClientOnly>
       {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
     </>
   );

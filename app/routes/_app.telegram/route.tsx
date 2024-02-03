@@ -8,7 +8,7 @@ import {
   StructuredListWrapper,
 } from '@carbon/react';
 import { ActionFunction, MetaFunction, json } from '@remix-run/node';
-import { Form, useLoaderData } from '@remix-run/react';
+import { Form, useLoaderData, useSubmit } from '@remix-run/react';
 import CarbonContentPage from '~/components/CarbonContentPage';
 import CarbonDataPage from '~/components/CarbonDataPage';
 import { db } from '~/lib/db';
@@ -35,6 +35,11 @@ export const action: ActionFunction = async ({ request }) => {
       );
       return json({ ok: 'webhook set' });
     }
+    case 'test': {
+      const chatId = form.get('chatId') as string;
+      await bot.telegram.sendMessage(chatId, `Тестовое сообщение`);
+      return json({ ok: 'message set' });
+    }
   }
 
   return json({ ok: true });
@@ -42,6 +47,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Profile() {
   const { groups } = useLoaderData<typeof loader>();
+  const submit = useSubmit();
 
   return (
     <CarbonDataPage>
@@ -63,7 +69,21 @@ export default function Profile() {
               <StructuredListRow key={group.id}>
                 <StructuredListCell noWrap>{group.title}</StructuredListCell>
                 <StructuredListCell>
-                  <Link>Отправить тестовое сообщение</Link>
+                  <Link
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      submit(
+                        {
+                          action: 'test',
+                          chatId: group.telegramId,
+                        },
+                        { method: 'post' }
+                      );
+                    }}
+                  >
+                    Отправить тестовое сообщение
+                  </Link>
                 </StructuredListCell>
               </StructuredListRow>
             ))}
