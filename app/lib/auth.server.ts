@@ -37,7 +37,7 @@ const codeStrategy = new FormStrategy(async ({ form }) => {
       where: eq(totp.code, code),
     });
 
-    if (!existingCode) {
+    if (!existingCode || existingCode.wasUsed) {
       console.error(`Unable to find provided code in the database ${code}`);
       throw new AuthorizationError('Невалидный код, получите новый');
     }

@@ -8,10 +8,42 @@ import {
 import { Form as RemixForm } from '@remix-run/react';
 import styles from './styles.module.css';
 import type { FC } from 'react';
+import { Account } from '~/lib/db/schema';
 
-type LoginFormProps = {
+type LoginPageProps = {
   error?: Error;
+  user?: Account;
 };
+
+const LoginPage: FC<LoginPageProps> = ({ error, user }) => {
+  if (user) {
+    return <NotAllowed user={user} />;
+  } else {
+    return <LoginForm error={error} />;
+  }
+};
+
+interface LoginFormProps {
+  error?: Error;
+}
+
+function NotAllowed({ user }: { user: Account }) {
+  return (
+    <div className={styles.box}>
+      <RemixForm method="post" className={styles.root}>
+        <Stack gap={7}>
+          <h1>
+            Недостаточно прав, {user.firstName} {user.lastName}
+          </h1>
+          <p>Обратитесь к администратору</p>
+          <Button kind="danger" href="/auth/logout">
+            Выйти из системы
+          </Button>
+        </Stack>
+      </RemixForm>
+    </div>
+  );
+}
 
 const LoginForm: FC<LoginFormProps> = ({ error }) => {
   const errorMessage = error ? (
@@ -42,6 +74,7 @@ const LoginForm: FC<LoginFormProps> = ({ error }) => {
             name="code"
             id="code"
             labelText="Код из телеграма"
+            autoComplete="off"
           />
           {errorMessage}
           <ButtonSet>
@@ -71,4 +104,4 @@ const LoginForm: FC<LoginFormProps> = ({ error }) => {
   );
 };
 
-export default LoginForm;
+export { LoginPage };

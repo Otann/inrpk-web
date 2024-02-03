@@ -7,7 +7,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: loginUrl(),
   });
-  if (user && user.roles && user.roles.length === 0) {
+  if (user === null || user.roles === null || user.roles.length === 0) {
     return redirect(loginUrl('unauthorized'));
   }
   return json({ user });

@@ -3,10 +3,13 @@ import type {
   LoaderFunctionArgs,
   MetaFunction,
 } from '@remix-run/node';
-import { json, useLoaderData } from '@remix-run/react';
-import { loginUrl, authenticator } from '~/lib/auth.server';
+import { json, redirect, useLoaderData } from '@remix-run/react';
+import { eq } from 'drizzle-orm';
+import { LoginPage } from '~/components/LoginPage';
+import { authenticator, loginUrl } from '~/lib/auth.server';
+import { db } from '~/lib/db';
+import { Account, account } from '~/lib/db/schema';
 import { commitSession, getSession } from '~/lib/session.server';
-import LoginForm from '~/components/LoginForm';
 
 export const meta: MetaFunction = () => {
   return [
@@ -16,13 +19,11 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  await authenticator.isAuthenticated(request, {
-    successRedirect: '/',
-  });
+  const user = await authenticator.isAuthenticated(request, {});
   const session = await getSession(request.headers.get('cookie'));
   const error = session.get(authenticator.sessionErrorKey);
   return json(
-    { error },
+    { error, user },
     {
       headers: {
         'Set-Cookie': await commitSession(session), // You must commit the session whenever you read a flash
@@ -42,7 +43,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 };
 
-export default function LoginPage() {
-  const { error } = useLoaderData<typeof loader>();
-  return <LoginForm error={error} />;
+export default function LoginLandingPage() {
+  const { error, user } = useLoaderData<typeof loader>();
+  return <LoginPage error={error} user={user as Account} />;
 }

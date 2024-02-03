@@ -20,7 +20,7 @@ export async function sendNewCode(ctx: TelegrafContext) {
     .values({ code, telegramUser, createdAt, telegramId })
     .onConflictDoUpdate({
       target: totp.telegramId,
-      set: { code, telegramUser },
+      set: { code, telegramUser, wasUsed: false },
     });
 
   ctx.reply(
