@@ -6,17 +6,16 @@ import {
   StructuredListHead,
   StructuredListRow,
   StructuredListWrapper,
-} from '@carbon/react';
-import { ActionFunction, MetaFunction, json } from '@remix-run/node';
-import { Form, useLoaderData, useSubmit } from '@remix-run/react';
-import CarbonContentPage from '~/components/CarbonContentPage';
-import CarbonDataPage from '~/components/CarbonDataPage';
-import { db } from '~/lib/db';
-import { bot } from '~/lib/telegram';
-import styles from './styles.module.css';
+} from "@carbon/react";
+import { ActionFunction, MetaFunction, json } from "@remix-run/node";
+import { useLoaderData, useSubmit } from "@remix-run/react";
+import CarbonDataPage from "~/components/CarbonDataPage";
+import { db } from "~/lib/db/index.server";
+import { bot } from "~/lib/telegram";
+import styles from "./styles.module.css";
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'ИНРПК: Телеграм' }];
+  return [{ title: "ИНРПК: Телеграм" }];
 };
 
 export const loader = async () => {
@@ -26,19 +25,19 @@ export const loader = async () => {
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
-  const action = form.get('action');
+  const action = form.get("action");
 
   switch (action) {
-    case 'webhook': {
+    case "webhook": {
       await bot.telegram.setWebhook(
         `https://inrpk-admin.ru/api/telegram/X4rmkvFBmnZaFtywaPmx`
       );
-      return json({ ok: 'webhook set' });
+      return json({ ok: "webhook set" });
     }
-    case 'test': {
-      const chatId = form.get('chatId') as string;
+    case "test": {
+      const chatId = form.get("chatId") as string;
       await bot.telegram.sendMessage(chatId, `Тестовое сообщение`);
-      return json({ ok: 'message set' });
+      return json({ ok: "message set" });
     }
   }
 
@@ -60,7 +59,7 @@ export default function Profile() {
                 Название группы
               </StructuredListCell>
               <StructuredListCell head className={styles.actions}>
-                {' '}
+                {" "}
               </StructuredListCell>
             </StructuredListRow>
           </StructuredListHead>
@@ -75,10 +74,10 @@ export default function Profile() {
                       e.preventDefault();
                       submit(
                         {
-                          action: 'test',
+                          action: "test",
                           chatId: group.telegramId,
                         },
-                        { method: 'post' }
+                        { method: "post" }
                       );
                     }}
                   >

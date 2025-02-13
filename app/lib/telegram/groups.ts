@@ -1,6 +1,6 @@
 import { Chat } from 'telegraf/typings/telegram-types';
-import { db } from '~/lib/db';
-import { telegramGroup } from '../db/schema';
+import { db } from '~/lib/db/index.server';
+import { telegramGroup } from '../db/schema.server';
 import { eq } from 'drizzle-orm';
 import { TelegrafContext } from 'telegraf/typings/context';
 import Telegraf from 'telegraf';

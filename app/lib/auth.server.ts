@@ -1,8 +1,8 @@
 import { Authenticator, AuthorizationError } from 'remix-auth';
 import { sessionStorage } from './session.server';
 import { FormStrategy } from 'remix-auth-form';
-import { Account, account, totp } from './db/schema';
-import { db } from './db';
+import { Account, account, totp } from './db/schema.server';
+import { db } from './db/index.server';
 import { eq } from 'drizzle-orm';
 
 export function loginUrl(reason: string | null = null): string {

@@ -2,31 +2,29 @@ import type {
   ActionFunction,
   LoaderFunctionArgs,
   MetaFunction,
-} from '@remix-run/node';
-import { json, redirect, useLoaderData } from '@remix-run/react';
-import { eq } from 'drizzle-orm';
-import { LoginPage } from '~/components/LoginPage';
-import { authenticator, loginUrl } from '~/lib/auth.server';
-import { db } from '~/lib/db';
-import { Account, account } from '~/lib/db/schema';
-import { commitSession, getSession } from '~/lib/session.server';
+} from "@remix-run/node";
+import { json, useLoaderData } from "@remix-run/react";
+import { LoginPage } from "~/components/LoginPage";
+import { authenticator, loginUrl } from "~/lib/auth.server";
+import { Account } from "~/lib/db/schema.server";
+import { commitSession, getSession } from "~/lib/session.server";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'ИНРПК Бот' },
-    { name: 'description', content: 'Управление ботом' },
+    { title: "ИНРПК Бот" },
+    { name: "description", content: "Управление ботом" },
   ];
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const user = await authenticator.isAuthenticated(request, {});
-  const session = await getSession(request.headers.get('cookie'));
+  const session = await getSession(request.headers.get("cookie"));
   const error = session.get(authenticator.sessionErrorKey);
   return json(
     { error, user },
     {
       headers: {
-        'Set-Cookie': await commitSession(session), // You must commit the session whenever you read a flash
+        "Set-Cookie": await commitSession(session), // You must commit the session whenever you read a flash
       },
     }
   );
@@ -34,8 +32,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export const action: ActionFunction = async ({ request }) => {
   try {
-    return authenticator.authenticate('code', request, {
-      successRedirect: '/',
+    return authenticator.authenticate("code", request, {
+      successRedirect: "/",
       failureRedirect: loginUrl(),
     });
   } catch (error) {

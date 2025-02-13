@@ -1,16 +1,12 @@
-import { Button, Stack } from '@carbon/react';
-import { ActionFunction, MetaFunction, json } from '@remix-run/node';
-import { Form, useLoaderData } from '@remix-run/react';
-import CarbonContentPage from '~/components/CarbonContentPage';
-import {
-  getAuthorizeUrl,
-  refreshAccessToken,
-  createMeeting,
-} from '~/lib/api/zoom.server';
-import { db } from '~/lib/db';
+import { Button, Stack } from "@carbon/react";
+import { ActionFunction, MetaFunction, json } from "@remix-run/node";
+import { Form, useLoaderData } from "@remix-run/react";
+import CarbonContentPage from "~/components/CarbonContentPage";
+import { getAuthorizeUrl, createMeeting } from "~/lib/api/zoom.server";
+import { db } from "~/lib/db/index.server";
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'ИНРПК: Зум' }];
+  return [{ title: "ИНРПК: Зум" }];
 };
 
 export const loader = async () => {
@@ -22,19 +18,19 @@ export const loader = async () => {
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
-  const action = form.get('action');
+  const action = form.get("action");
 
   switch (action) {
-    case 'start_meeting': {
+    case "start_meeting": {
       const zoomCredentials = await db.query.zoomCredentials.findFirst();
       // const refreshedToken = await refreshAccessToken(
       //   zoomCredentials!.credentials.access_token
       // );
       const token = zoomCredentials?.credentials?.access_token as string;
-      const meeting = await createMeeting(token, 'me', {
+      const meeting = await createMeeting(token, "me", {
         type: 1,
-        topic: 'this is a test',
-        agenda: 'hallo friend',
+        topic: "this is a test",
+        agenda: "hallo friend",
       });
 
       return json({ meeting });

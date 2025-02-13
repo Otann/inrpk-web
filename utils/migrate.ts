@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { devDb, migrate } from "app/lib/db";
+import { devDb, migrate } from "~/lib/db/index.server";
 
 const main = async () => {
   try {
@@ -11,5 +11,4 @@ const main = async () => {
   process.exit(0);
 };
 
-main()
-
+main();

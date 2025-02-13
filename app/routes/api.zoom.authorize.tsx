@@ -1,7 +1,7 @@
 import { LoaderFunction, json } from '@remix-run/node';
 import { getAccessToken, whoAmI, REDIRECT_URL } from '~/lib/api/zoom.server';
-import { db } from '~/lib/db';
-import { zoomCredentials } from '~/lib/db/schema';
+import { db } from '~/lib/db/index.server';
+import { zoomCredentials } from '~/lib/db/schema.server';
 import { eq } from 'drizzle-orm';
 import { isAxiosError } from 'axios';
 

@@ -10,7 +10,7 @@ import {
 import { Form, useSubmit } from '@remix-run/react';
 import { useRef, useState } from 'react';
 import { ClientOnly } from 'remix-utils/client-only';
-import { StudyGroupWithTg, TelegramGroup } from '~/lib/db/schema';
+import { StudyGroupWithTg, TelegramGroup } from '~/lib/db/schema.server';
 
 interface EditGroupButtonProps {
   group: StudyGroupWithTg;

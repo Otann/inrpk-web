@@ -1,6 +1,6 @@
 import { TelegrafContext } from 'telegraf/typings/context';
-import { db } from '~/lib/db';
-import { totp } from '~/lib/db/schema';
+import { db } from '~/lib/db/index.server';
+import { totp } from '~/lib/db/schema.server';
 
 export const REQUEST_CODE_MSG = 'Получить новый код';
 

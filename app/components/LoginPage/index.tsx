@@ -8,7 +8,7 @@ import {
 import { Form as RemixForm } from '@remix-run/react';
 import styles from './styles.module.css';
 import type { FC } from 'react';
-import { Account } from '~/lib/db/schema';
+import { Account } from '~/lib/db/schema.server';
 
 type LoginPageProps = {
   error?: Error;

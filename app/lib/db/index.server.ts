@@ -1,4 +1,4 @@
-import * as schema from './schema';
+import * as schema from './schema.server';
 
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import { drizzle } from 'drizzle-orm/postgres-js';
